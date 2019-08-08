@@ -1,0 +1,11 @@
+FROM alpine:sp_xray
+RUN mkdir -p /data/app
+WORKDIR /data/app
+COPY main .
+COPY config.yaml .
+RUN chmod +x main
+
+EXPOSE 80
+COPY app.conf /etc/supervisor/conf/app.conf
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
